@@ -45,15 +45,15 @@ void Game::load()
 	*/
 	camera = new Camera();
 	
-	//Créer la cube
+	//Créer le cube
 	Actor* a = new Actor();
-	a->setPosition(Vector3(200.0f, 105.0f, 0.0f));
-	a->setScale(100.0f);
-	Quaternion q(Vector3::unitY, -Maths::piOver2);
+	a->setPosition(Vector3(100.0f, 105.0f, 0.0f)); //Set sa position
+	a->setScale(90.0f); //Set sa scale
+	Quaternion q(Vector3::unitY, -Maths::piOver2); 
 	q = Quaternion::concatenate(q, Quaternion(Vector3::unitZ, Maths::pi + Maths::pi / 4.0f));
-	a->setRotation(q);
-	MeshComponent* mc = new MeshComponent(a);
-	mc->setMesh(Assets::getMesh("Mesh_Cube"));
+	a->setRotation(q); //Set sa rotation
+	MeshComponent* mc = new MeshComponent(a); //Set son meshcomponent
+	mc->setMesh(Assets::getMesh("Mesh_Cube"));//Set son mesh à son mesh component
 
 	//Créer la sphère
 	Actor* b = new Actor();

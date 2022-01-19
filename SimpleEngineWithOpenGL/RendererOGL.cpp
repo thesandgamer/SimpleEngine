@@ -27,8 +27,9 @@ RendererOGL::~RendererOGL()
 
 bool RendererOGL::initialize(Window& windowP)
 {
+	//Récupère la fenètre
 	window = &windowP;
-
+	
 	// Set OpenGL attributes
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -67,11 +68,12 @@ bool RendererOGL::initialize(Window& windowP)
 		return false;
 	}
 
-	spriteVertexArray = new VertexArray(spriteVertices, 4, indices, 6);
+	spriteVertexArray = new VertexArray(spriteVertices, 4, indices, 6); //Set le vertex array pour le rendu
 
 	return true;
 }
 
+//Dessiner en premier le fond et clear tout ce qu'il y avait avant
 void RendererOGL::beginDraw()
 {
 	glClearColor(0.45f, 0.45f, 1.0f, 1.0f);
@@ -81,7 +83,7 @@ void RendererOGL::beginDraw()
 
 void RendererOGL::draw()
 {
-	drawMeshes();
+	drawMeshes();//Dessiner les meshs
 	//drawSprites();
 }
 
@@ -97,11 +99,13 @@ void RendererOGL::drawSprite(const Actor& actor, const Texture& tex, Rectangle s
 
 void RendererOGL::endDraw()
 {
+	//On swap
 	SDL_GL_SwapWindow(window->getSDLWindow());
 }
 
 void RendererOGL::addMesh(MeshComponent* mesh)
 {
+	//Rajoute des meshs à la liste de meshs à dessiner
 	meshes.emplace_back(mesh);
 }
 
@@ -148,12 +152,12 @@ void RendererOGL::drawMeshes()
 	// Enable depth buffering/disable alpha blend
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
-	Assets::getShader("BasicMesh").use();
+	Assets::getShader("BasicMesh").use(); //Dit quel shader utiliser
 	// Update view-projection matrix
-	Assets::getShader("BasicMesh").setMatrix4("uViewProj", view * projection);
+	Assets::getShader("BasicMesh").setMatrix4("uViewProj", view * projection);//Set le matrix 4 du shader avec la vu et la proj du renderer
 	for (auto mc : meshes)
 	{
-		mc->draw(Assets::getShader("BasicMesh"));
+		mc->draw(Assets::getShader("BasicMesh"));//Dessine le mesh du meshcompnenet avec le shader basic mesh
 	}
 }
 
