@@ -11,7 +11,7 @@ void Camera::updateActor(float deltaTime)
 {
 	Actor::updateActor(deltaTime);
 
-	//Compute new camera from this actor
+	// Compute new camera from this actor
 	Vector3 cameraPos = getPosition();
 	Vector3 target = getPosition() + getForward() * 100.0f;
 	Vector3 up = Vector3::unitZ;

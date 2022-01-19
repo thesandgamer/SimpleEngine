@@ -6,7 +6,7 @@
 
 
 Actor::Actor() :
-	state(Actor::ActorState::Active), //Quand l'acteur est créer il est actif
+	state(Actor::ActorState::Active),
 	position(Vector3::zero),
 	scale(1.0f),
 	rotation(Quaternion::identity),
@@ -16,19 +16,16 @@ Actor::Actor() :
 	game.addActor(this);
 }
 
+//Destructor
 Actor::~Actor()
 {
-	game.removeActor(this);//Remove l'actor de la liste des acteurs du game
+	game.removeActor(this);
+	// Need to delete components
+	// Because ~Component calls RemoveComponent, need a different style loop
 	while (!components.empty())
 	{
 		delete components.back();
 	}
-}
-
-//Calcul le forward vector 
-const Vector3 Actor::getForward() const
-{
-	return Vector3::transform(Vector3::unitX, rotation);
 }
 
 void Actor::setPosition(Vector3 positionP)
@@ -41,7 +38,6 @@ void Actor::setScale(float scaleP)
 {
 	scale = scaleP;
 	mustRecomputeWorldTransform = true;
-
 }
 
 void Actor::setRotation(Quaternion rotationP)
@@ -50,21 +46,59 @@ void Actor::setRotation(Quaternion rotationP)
 	mustRecomputeWorldTransform = true;
 }
 
-void Actor::SetState(ActorState newState)
+void Actor::setState(ActorState stateP)
 {
-	state = newState;
+	state = stateP;
+}
+
+Vector3 Actor::getForward() const
+{
+	return Vector3::transform(Vector3::unitX, rotation);
+}
+
+void Actor::computeWorldTransform()
+{
+	if (mustRecomputeWorldTransform)
+	{
+		mustRecomputeWorldTransform = false;
+		worldTransform = Matrix4::createScale(scale);
+		worldTransform *= Matrix4::createFromQuaternion(rotation);
+		worldTransform *= Matrix4::createTranslation(position);
+
+		for (auto component : components)
+		{
+			component->onUpdateWorldTransfom();
+		}
+	}
+}
+
+void Actor::processInput(const Uint8* keyState)
+{
+	if (state == Actor::ActorState::Active)
+	{
+		for (auto component : components)
+		{
+			component->processInput(keyState);
+		}
+		actorInput(keyState);
+	}
+}
+
+void Actor::actorInput(const Uint8* keyState)
+{
 }
 
 void Actor::update(float dt)
 {
 	if (state == Actor::ActorState::Active)
 	{
-		updateComponents(dt);//Update ses components
+		computeWorldTransform();
+		updateComponents(dt);
 		updateActor(dt);
+		computeWorldTransform();
 	}
 }
 
-//On va récupérer tous les components de l'acteur pour les update les uns à la suite des autres
 void Actor::updateComponents(float dt)
 {
 	for (auto component : components)
@@ -75,67 +109,31 @@ void Actor::updateComponents(float dt)
 
 void Actor::updateActor(float dt)
 {
-
 }
 
-
-//Fonction pour ajouter un component à l'acteur
 void Actor::addComponent(Component* component)
 {
-	int myOrder = component->getUpdateOrder();//Get l'ordre d'update du componenent
+	// Find the insertion point in the sorted vector
+	// (The first element with a order higher than me)
+	int myOrder = component->getUpdateOrder();
 	auto iter = begin(components);
-	for (; iter != end(components); iter++)//On va parcourir tous les componenets
+	for (; iter != end(components); ++iter)
 	{
-		if (myOrder < (*iter)->getUpdateOrder()) //si l'ordre du compoenent x est supérieur à celui du C à ajouter
+		if (myOrder < (*iter)->getUpdateOrder())
 		{
 			break;
 		}
 	}
-	//Insère le component dans l'ordre d'éxécution
+
+	// Inserts element before position of iterator
 	components.insert(iter, component);
-
-
 }
 
 void Actor::removeComponent(Component* component)
 {
-	auto iter = std::find(begin(components), end(components), component); //Cherche le componenent dans la liste
-	if (iter != end(components))//Si on le trouve
+	auto iter = std::find(begin(components), end(components), component);
+	if (iter != end(components))
 	{
-		components.erase(iter);//On l'erase
-	}
-}
-
-//Processing input de l'acteur et de tous ses componenets
-void Actor::processInput(const Uint8* keyState)
-{
-	if (state == Actor::ActorState::Active)//Si l'acteur est actif
-	{
-		for (auto component : components)//On va process les inputs de tous ses componenets
-		{
-			component->processInput(keyState);
-		}
-		actorInput(keyState);
-
-	}
-}
-
-void Actor::actorInput(const Uint8* keystate)
-{
-}
-
-void Actor::computeWorldTransform()
-{
-	if (mustRecomputeWorldTransform)
-	{
-		mustRecomputeWorldTransform = false;
-		worldTransform = Matrix4::createScale(scale);
-		worldTransform = Matrix4::createFromQuaternion(rotation);
-		worldTransform = Matrix4::createTranslation(Vector3(position.x,position.y,0.0f));
-
-		for (auto component : components)
-		{
-			component->onUpdateWorldTransfom();
-		}
+		components.erase(iter);
 	}
 }
