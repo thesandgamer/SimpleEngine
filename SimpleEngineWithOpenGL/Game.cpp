@@ -9,11 +9,6 @@ bool Game::initialize()
 {
 	bool isWindowInit = window.initialize();
 	bool isRendererInit = renderer.initialize(window);
-
-	int windowWidth = window.getWidth();
-	int windowHeight = window.getHeight();
-
-
 	return isWindowInit && isRendererInit; // Return bool && bool && bool ...to detect error
 }
 
@@ -42,9 +37,6 @@ void Game::load()
 	Assets::loadMesh("Res\\Meshes\\Sphere.gpmesh", "Mesh_Sphere");
 	//________________________________________________________________________________
 
-	//Animated Sprite_________________________________
-
-	//_________________________________________
 
 	/*
 	Actor* ui = new Actor();
@@ -53,18 +45,19 @@ void Game::load()
 	*/
 	camera = new Camera();
 	
+	//Créer la cube
 	Actor* a = new Actor();
-	a->setPosition(Vector3(0.0f, 0.0f, 0.0f));
-	a->setScale(3.0f);
+	a->setPosition(Vector3(200.0f, 105.0f, 0.0f));
+	a->setScale(100.0f);
 	Quaternion q(Vector3::unitY, -Maths::piOver2);
 	q = Quaternion::concatenate(q, Quaternion(Vector3::unitZ, Maths::pi + Maths::pi / 4.0f));
 	a->setRotation(q);
 	MeshComponent* mc = new MeshComponent(a);
 	mc->setMesh(Assets::getMesh("Mesh_Cube"));
 
-	
+	//Créer la sphère
 	Actor* b = new Actor();
-	b->setPosition(Vector3(2000.0f, -75.0f, 0.0f));
+	b->setPosition(Vector3(200.0f, -75.0f, 0.0f));
 	b->setScale(3.0f);
 	MeshComponent* mcb = new MeshComponent(b);
 	mcb->setMesh(Assets::getMesh("Mesh_Sphere"));

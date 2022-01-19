@@ -124,7 +124,7 @@ void RendererOGL::close()
 
 void RendererOGL::addSprite(SpriteComponent* sprite)
 {
-	// Insert the sprite at the right place in function of drawOrder
+	// Insert the sprite at the right place in function of drawOrder pour qu'il se déssine dans le bon ordre
 	int spriteDrawOrder = sprite->getDrawOrder();
 	auto iter = begin(sprites);
 
@@ -138,6 +138,7 @@ void RendererOGL::addSprite(SpriteComponent* sprite)
 
 void RendererOGL::removeSprite(SpriteComponent* sprite)
 {
+	//Trouve le sprite dans la liste des sprites et on l'enlève
 	auto iter = std::find(begin(sprites), end(sprites), sprite);
 	sprites.erase(iter);
 }
