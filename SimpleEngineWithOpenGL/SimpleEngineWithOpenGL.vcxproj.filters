@@ -1,12 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="Assets.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Random.cpp" />
-    <ClCompile Include="Rectangle.cpp" />
-    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="CircleCollisionComponent.cpp">
       <Filter>Component\Physics</Filter>
     </ClCompile>
@@ -31,35 +25,68 @@
     <ClCompile Include="Window.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Vector2.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Log.cpp">
+    <ClCompile Include="Matrix4.cpp">
+      <Filter>Engine\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>Engine\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>Engine\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>Engine\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexArray.cpp">
+      <Filter>Engine\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Engine\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Engine\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="RendererOGL.cpp">
+      <Filter>Engine\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>Engine\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>GameContent</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Assets.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="VertexArray.cpp" />
-    <ClCompile Include="RendererOGL.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Vector3.cpp" />
-    <ClCompile Include="Matrix4.cpp" />
-    <ClCompile Include="Quaternion.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="MeshComponent.cpp" />
-    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Engine\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>Engine\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="Plane.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Actor.h" />
-    <ClInclude Include="Assets.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Random.h" />
-    <ClInclude Include="Rectangle.h" />
-    <ClInclude Include="Texture.h" />
     <ClInclude Include="CircleCollisionComponent.h">
       <Filter>Component\Physics</Filter>
     </ClInclude>
@@ -81,31 +108,73 @@
     <ClInclude Include="Window.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Maths.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Log.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="IRenderer.h" />
-    <ClInclude Include="VertexArray.h" />
-    <ClInclude Include="RendererOGL.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="Vector3.h" />
-    <ClInclude Include="Matrix4.h" />
     <ClInclude Include="Component.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="Quaternion.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="MeshComponent.h" />
-    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Maths.h">
+      <Filter>Engine\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4.h">
+      <Filter>Engine\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>Engine\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>Engine\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>Engine\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexArray.h">
+      <Filter>Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="RendererOGL.h">
+      <Filter>Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderer.h">
+      <Filter>Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Engine\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>GameContent</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Assets.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Engine\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>Engine\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h" />
+    <ClInclude Include="Sphere.h" />
+    <ClInclude Include="Plane.h" />
+    <ClInclude Include="DirectionalLight.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
@@ -122,6 +191,15 @@
     </Filter>
     <Filter Include="Shaders">
       <UniqueIdentifier>{811fe77f-2e91-4d85-82d1-87111061225d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Utility">
+      <UniqueIdentifier>{a643ddc8-7961-4e42-8f87-d6eaf1565b4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Rendering">
+      <UniqueIdentifier>{0b4683ee-9dd0-482d-91e5-ff617ae96ce7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{2c27eca7-a86b-4657-b0aa-9a9d8de3e2e7}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameContent">
       <UniqueIdentifier>{d7e7effa-1c4e-4316-9b61-6c0b835bdbb5}</UniqueIdentifier>
@@ -147,6 +225,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="BasicMesh.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Phong.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Phong.frag">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

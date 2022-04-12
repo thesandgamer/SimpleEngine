@@ -16,8 +16,11 @@ RendererOGL::RendererOGL() :
 	spriteVertexArray(nullptr),
 	spriteViewProj(Matrix4::createSimpleViewProj(WINDOW_WIDTH, WINDOW_HEIGHT)),
 	view(Matrix4::createLookAt(Vector3::zero, Vector3::unitX, Vector3::unitZ)), // By default, the camera looks forward. This view matrix will be changed by the camera
-	projection(Matrix4::createPerspectiveFOV(Maths::toRadians(70.0f), WINDOW_WIDTH, WINDOW_HEIGHT, 25.0f, 10000.0f))
+	projection(Matrix4::createPerspectiveFOV(Maths::toRadians(70.0f), WINDOW_WIDTH, WINDOW_HEIGHT, 25.0f, 10000.0f)),
 	//^ creates the camera frustrum
+
+	ambientLight(Vector3(1.0f, 1.0f, 1.0f)),
+	dirLight({Vector3::zero,Vector3::zero,Vector3::zero})
 {
 }
 
@@ -84,7 +87,7 @@ void RendererOGL::beginDraw()
 void RendererOGL::draw()
 {
 	drawMeshes();//Dessiner les meshs
-	//drawSprites();
+	drawSprites();
 }
 
 void RendererOGL::drawSprite(const Actor& actor, const Texture& tex, Rectangle srcRect, Vector2 origin, Flip flip) const
@@ -120,6 +123,27 @@ void RendererOGL::setViewMatrix(const Matrix4& viewP)
 	view = viewP;
 }
 
+void RendererOGL::setLightUniforms(Shader& shader)
+{
+	//Camera position is from inverted view
+	Matrix4 invertedView = view;
+	invertedView.invert();
+	shader.setVector3f("uCameraPos", invertedView.getTranslation());
+	//Ambient
+	shader.setVector3f("uCameraPos", ambientLight);
+
+	//Directional light
+	shader.setVector3f("uDirLight.direction", dirLight.direction);
+	shader.setVector3f("uDirLight.diffuseColor", dirLight.diffuseColor);
+	shader.setVector3f("uDirLight.specColor", dirLight.specColor);
+
+}
+
+void RendererOGL::setAmbientLight(const Vector3& ambientP)
+{
+	ambientLight = ambientP;
+}
+
 void RendererOGL::close()
 {
 	SDL_GL_DeleteContext(context);
@@ -152,12 +176,17 @@ void RendererOGL::drawMeshes()
 	// Enable depth buffering/disable alpha blend
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
-	Assets::getShader("BasicMesh").use(); //Dit quel shader utiliser
+	Shader& shader = Assets::getShader("Phong");
+	shader.use();
+	shader.setMatrix4("uViewProj", view * projection);	//Update la matrice de projection du shader
+
+	setLightUniforms(shader); //Pour les lights
+	///Assets::getShader("BasicMesh").use(); //Dit quel shader utiliser
 	// Update view-projection matrix
-	Assets::getShader("BasicMesh").setMatrix4("uViewProj", view * projection);//Set le matrix 4 du shader avec la vu et la proj du renderer
+	//Assets::getShader("BasicMesh").setMatrix4("uViewProj", view * projection);//Set le matrix 4 du shader avec la vu et la proj du renderer
 	for (auto mc : meshes)
 	{
-		mc->draw(Assets::getShader("BasicMesh"));//Dessine le mesh du meshcompnenet avec le shader basic mesh
+		mc->draw(Assets::getShader("Phong"));//Dessine le mesh du meshcompnenet avec le shader basic mesh
 	}
 }
 

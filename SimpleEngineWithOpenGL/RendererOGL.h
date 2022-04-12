@@ -3,7 +3,7 @@
 #include "VertexArray.h"
 #include "Vector2.h"
 #include "Shader.h"
-
+#include "DirectionalLight.h"
 
 #include <vector>
 
@@ -31,6 +31,11 @@ public:
 
 	void setViewMatrix(const Matrix4& viewP);
 
+	DirectionalLight& getDirectionalLight() { return dirLight; }
+
+	void setLightUniforms(Shader& shader);
+	void setAmbientLight(const Vector3& ambientP);
+
 private:
 	void drawSprites();
 	void drawMeshes();
@@ -46,6 +51,9 @@ private:
 
 	std::vector<class SpriteComponent*> sprites;
 	std::vector<class MeshComponent*> meshes;
+
+	Vector3 ambientLight;
+	DirectionalLight dirLight;
 
 
 };

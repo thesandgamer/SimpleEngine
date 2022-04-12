@@ -5,6 +5,12 @@
 #include "BackgroundSpriteComponent.h"
 #include "MeshComponent.h"
 
+#include "Cube.h"
+#include "Sphere.h"
+#include "Plane.h"
+
+
+
 bool Game::initialize()
 {
 	bool isWindowInit = window.initialize();
@@ -17,6 +23,7 @@ void Game::load()
 	//Load Shader _______________________________________________
 	Assets::loadShader("Res\\Shaders\\Sprite.vert", "Res\\Shaders\\Sprite.frag", "", "", "", "Sprite");
 	Assets::loadShader("Res\\Shaders\\BasicMesh.vert", "Res\\Shaders\\BasicMesh.frag", "", "", "", "BasicMesh");
+	Assets::loadShader("Res\\Shaders\\Phong.vert", "Res\\Shaders\\Phong.frag", "", "", "", "Phong");
 	//_____________________________________________________________________
 	
 
@@ -38,29 +45,81 @@ void Game::load()
 	//________________________________________________________________________________
 
 
-	/*
-	Actor* ui = new Actor();
-	ui->setPosition(Vector3(-350.0f, -350.0f, 0.0f));
-	SpriteComponent* sc = new SpriteComponent(ui, Assets::getTexture("HealthBar"));
-	*/
+
+
 	camera = new Camera();
 	
 	//Créer le cube
-	Actor* a = new Actor();
+	Cube* a = new Cube();
 	a->setPosition(Vector3(100.0f, 105.0f, 0.0f)); //Set sa position
 	a->setScale(90.0f); //Set sa scale
 	Quaternion q(Vector3::unitY, -Maths::piOver2); 
 	q = Quaternion::concatenate(q, Quaternion(Vector3::unitZ, Maths::pi + Maths::pi / 4.0f));
 	a->setRotation(q); //Set sa rotation
+	/*
 	MeshComponent* mc = new MeshComponent(a); //Set son meshcomponent
-	mc->setMesh(Assets::getMesh("Mesh_Cube"));//Set son mesh à son mesh component
+	mc->setMesh(Assets::getMesh("Mesh_Cube"));//Set son mesh à son mesh component*/
 
 	//Créer la sphère
-	Actor* b = new Actor();
+	Sphere* b = new Sphere();
 	b->setPosition(Vector3(200.0f, -75.0f, 0.0f));
 	b->setScale(3.0f);
+	/*
 	MeshComponent* mcb = new MeshComponent(b);
-	mcb->setMesh(Assets::getMesh("Mesh_Sphere"));
+	mcb->setMesh(Assets::getMesh("Mesh_Sphere"));*/
+
+	//Sol et murs
+	const float start = -1250.0f;
+	const float size = 250.0f;
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			Plane* p = new Plane();
+			p->setPosition(Vector3(start + i * size, start + j * size, -100.0f));
+		}
+	}
+	//Murs
+	q = Quaternion(Vector3::unitX, Maths::piOver2);
+	for (int i = 0; i < 10; i++)
+	{
+		Plane* p = new Plane();
+		p->setPosition(Vector3(start + i * size, start - size, 0.0f));
+		p->setRotation(q);
+
+		p = new Plane();
+		p->setPosition(Vector3(start + i * size, -start + size, 0.0f));
+		p->setRotation(q);
+	}
+	q = Quaternion::concatenate(q, Quaternion(Vector3::unitZ, Maths::piOver2));
+	for (int i = 0; i < 10; i++)
+	{
+		Plane* p = new Plane();
+		p->setPosition(Vector3(start - size, start + i* size, 0.0f));
+		p->setRotation(q);
+
+		p = new Plane();
+		p->setPosition(Vector3(-start + size, start + i * size, 0.0f));
+		p->setRotation(q);
+	}
+
+	//Setup lights
+	renderer.setAmbientLight(Vector3(0.2f, 0.2f, 0.2f));
+	DirectionalLight& dir = renderer.getDirectionalLight();
+	dir.direction = Vector3(0.0f, 0.707f, 0.707f);
+	dir.diffuseColor = Vector3(0.78f, 0.88f, 1.0f);
+	dir.specColor = Vector3(0.8f, 0.8f, 0.8f);
+
+	//Ui Elements		
+	Actor* ui = new Actor();
+	ui->setPosition(Vector3(-350.0f, -350.0f, 0.0f));
+	SpriteComponent* sc = new SpriteComponent(ui, Assets::getTexture("HealthBar"));
+
+	ui = new Actor();
+	ui->setPosition(Vector3(375.0f, -275.0f, 0.0f));
+	ui->setScale(0.75f);
+	sc = new SpriteComponent(ui, Assets::getTexture("Radar"));
+	
 }
 	
 

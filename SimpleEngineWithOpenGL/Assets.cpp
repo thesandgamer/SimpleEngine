@@ -270,6 +270,7 @@ Mesh Assets::loadMeshFromFile(const string& filename)
 		s << "Mesh " << filename << " has no indices";
 		Log::error(LogCategory::Application, s.str());
 	}
+	mesh.setSpecularPower(static_cast<float>(doc["specularPower"].GetDouble()));
 
 	std::vector<unsigned int> indices;
 	indices.reserve(indJson.Size() * 3.0);
