@@ -72,19 +72,19 @@ void Actor::computeWorldTransform()
 	}
 }
 
-void Actor::processInput(const Uint8* keyState)
+void Actor::processInput(const struct InputState& inputState)
 {
 	if (state == Actor::ActorState::Active)
 	{
 		for (auto component : components)
 		{
-			component->processInput(keyState);
+			component->processInput(inputState);
 		}
-		actorInput(keyState);
+		actorInput(inputState);
 	}
 }
 
-void Actor::actorInput(const Uint8* keyState)
+void Actor::actorInput(const struct InputState& inputState)
 {
 }
 

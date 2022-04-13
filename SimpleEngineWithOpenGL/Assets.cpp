@@ -217,7 +217,7 @@ Mesh Assets::loadMeshFromFile(const string& filename)
 		Log::error(LogCategory::Application, s.str());
 	}
 
-	//mesh.setSpecularPower(static_cast<float>(doc["specularPower"].GetDouble()));
+	mesh.setSpecularPower(static_cast<float>(doc["specularPower"].GetDouble()));
 
 	for (rapidjson::SizeType i = 0; i < textures.Size(); i++)
 	{

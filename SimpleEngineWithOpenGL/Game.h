@@ -7,6 +7,8 @@
 #include "Actor.h"
 #include "Assets.h"
 #include "SpriteComponent.h"
+#include "InputSystem.h"
+
 
 #include "Camera.h"
 
@@ -60,7 +62,11 @@ private:
 	vector<Actor*> pendingActors;
 
 	Camera* camera;
+
+	InputSystem inputSystem;
+
 	//Game Specific
+
 
 
 };

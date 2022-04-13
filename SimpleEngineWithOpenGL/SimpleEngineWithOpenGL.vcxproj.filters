@@ -85,6 +85,15 @@
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Plane.cpp" />
+    <ClCompile Include="InputSystem.cpp">
+      <Filter>Engine\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardState.cpp">
+      <Filter>Engine\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseState.cpp">
+      <Filter>Engine\Inputs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CircleCollisionComponent.h">
@@ -174,7 +183,18 @@
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Plane.h" />
-    <ClInclude Include="DirectionalLight.h" />
+    <ClInclude Include="DirectionalLight.h">
+      <Filter>Engine\Rendering\Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="InputSystem.h">
+      <Filter>Engine\Inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardState.h">
+      <Filter>Engine\Inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseState.h">
+      <Filter>Engine\Inputs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
@@ -203,6 +223,12 @@
     </Filter>
     <Filter Include="GameContent">
       <UniqueIdentifier>{d7e7effa-1c4e-4316-9b61-6c0b835bdbb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Rendering\Lights">
+      <UniqueIdentifier>{b23c4adf-5f8e-46e2-a1de-c744df8003df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Inputs">
+      <UniqueIdentifier>{5ba6bea9-1bea-4a35-8012-39d93d2b8fbf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

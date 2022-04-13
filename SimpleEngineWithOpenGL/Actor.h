@@ -39,8 +39,8 @@ public:
 	Vector3 getForward() const;
 	void computeWorldTransform();
 
-	void processInput(const Uint8* keyState);
-	virtual void actorInput(const Uint8* keyState);
+	void processInput(const struct InputState& inputState);
+	virtual void actorInput(const struct InputState& inputState);
 	void update(float dt);
 	void updateComponents(float dt);
 	virtual void updateActor(float dt);

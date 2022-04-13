@@ -50,8 +50,8 @@ bool Texture::loadSDL(RendererSDL& rendererP, const string& filenamepP)
 	Log::info("Loaded texture " + filename);
 
 	return true;
-}
-*/
+}*/
+
 
 bool Texture::loadOGL(RendererOGL& rendererP, const string& filenamepP)
 {
@@ -97,5 +97,5 @@ void Texture::updateInfo(int& widthOut, int& heighOut)
 
 void Texture::setActive() const
 {
-	//glBindTexture(GL_TEXTURE_2D, textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
 }

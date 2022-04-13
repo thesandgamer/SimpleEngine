@@ -15,7 +15,9 @@ bool Game::initialize()
 {
 	bool isWindowInit = window.initialize();
 	bool isRendererInit = renderer.initialize(window);
-	return isWindowInit && isRendererInit; // Return bool && bool && bool ...to detect error
+	bool isInputInit = inputSystem.initialize();
+
+	return isWindowInit && isRendererInit && isInputInit; // Return bool && bool && bool ...to detect error
 }
 
 void Game::load()
@@ -44,9 +46,7 @@ void Game::load()
 	Assets::loadMesh("Res\\Meshes\\Sphere.gpmesh", "Mesh_Sphere");
 	//________________________________________________________________________________
 
-
-
-
+		
 	camera = new Camera();
 	
 	//Créer le cube
@@ -56,19 +56,15 @@ void Game::load()
 	Quaternion q(Vector3::unitY, -Maths::piOver2); 
 	q = Quaternion::concatenate(q, Quaternion(Vector3::unitZ, Maths::pi + Maths::pi / 4.0f));
 	a->setRotation(q); //Set sa rotation
-	/*
-	MeshComponent* mc = new MeshComponent(a); //Set son meshcomponent
-	mc->setMesh(Assets::getMesh("Mesh_Cube"));//Set son mesh à son mesh component*/
+
 
 	//Créer la sphère
 	Sphere* b = new Sphere();
 	b->setPosition(Vector3(200.0f, -75.0f, 0.0f));
 	b->setScale(3.0f);
-	/*
-	MeshComponent* mcb = new MeshComponent(b);
-	mcb->setMesh(Assets::getMesh("Mesh_Sphere"));*/
 
-	//Sol et murs
+
+	//==========Sol et murs
 	const float start = -1250.0f;
 	const float size = 250.0f;
 	for (int i = 0; i < 10; i++)
@@ -103,14 +99,15 @@ void Game::load()
 		p->setRotation(q);
 	}
 
-	//Setup lights
-	renderer.setAmbientLight(Vector3(0.2f, 0.2f, 0.2f));
-	DirectionalLight& dir = renderer.getDirectionalLight();
-	dir.direction = Vector3(0.0f, 0.707f, 0.707f);
-	dir.diffuseColor = Vector3(0.78f, 0.88f, 1.0f);
-	dir.specColor = Vector3(0.8f, 0.8f, 0.8f);
 
-	//Ui Elements		
+	//=======Setup lights
+	renderer.setAmbientLight(Vector3(0.2f, 0.2f, 0.2f)); //Créer l'ambiant light dans le renderer : Vector3 = color
+	DirectionalLight& dir = renderer.getDirectionalLight(); //Créer un lumière directionelle
+	dir.direction = Vector3(0.0f, 0.707f, 0.707f); //Change sa direction
+	dir.diffuseColor = Vector3(0.78f, 0.88f, 1.0f); //Sa couleur
+	dir.specColor = Vector3(0.8f, 0.8f, 0.8f); //Sa couleur de specular
+
+	//==========Ui Elements		
 	Actor* ui = new Actor();
 	ui->setPosition(Vector3(-350.0f, -350.0f, 0.0f));
 	SpriteComponent* sc = new SpriteComponent(ui, Assets::getTexture("HealthBar"));
@@ -138,10 +135,13 @@ void Game::processInput()
 			break;
 		}
 	}
+
 	// Keyboard state
-	const Uint8* keyboardState = SDL_GetKeyboardState(nullptr);
+	inputSystem.update();
+	const InputState& input = inputSystem.getInputState();
+
 	// Escape: quit game
-	if (keyboardState[SDL_SCANCODE_ESCAPE])
+	if (input.keyboard.getKeyState(SDL_SCANCODE_ESCAPE) == ButtonState::Released) //Si l'état de la touche esc est released
 	{
 		isRunning = false;
 	}
@@ -150,7 +150,7 @@ void Game::processInput()
 	isUpdatingActors = true;
 	for (auto actor : actors)
 	{
-		actor->processInput(keyboardState);
+		actor->processInput(input);
 	}
 	isUpdatingActors = false;
 
@@ -233,6 +233,7 @@ void Game::unload()
 //Quand on ferme le jeu
 void Game::close()
 {
+	inputSystem.close();
 	renderer.close();
 	window.close();
 	SDL_Quit();

@@ -15,7 +15,7 @@ public:
 
 	virtual void update(float dt);
 
-	virtual void processInput(const Uint8* keystate);
+	virtual void processInput(const struct InputState& inputState);
 
 	virtual void onUpdateWorldTransfom() {}
 

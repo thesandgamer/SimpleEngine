@@ -129,13 +129,14 @@ void RendererOGL::setLightUniforms(Shader& shader)
 	Matrix4 invertedView = view;
 	invertedView.invert();
 	shader.setVector3f("uCameraPos", invertedView.getTranslation());
+
 	//Ambient
-	shader.setVector3f("uCameraPos", ambientLight);
+	shader.setVector3f("uAmbientLight", ambientLight);
 
 	//Directional light
-	shader.setVector3f("uDirLight.direction", dirLight.direction);
-	shader.setVector3f("uDirLight.diffuseColor", dirLight.diffuseColor);
-	shader.setVector3f("uDirLight.specColor", dirLight.specColor);
+	shader.setVector3f("uDirLight.direction", dirLight.direction); //Change la direction dans le shader
+	shader.setVector3f("uDirLight.diffuseColor", dirLight.diffuseColor);//Change la couleur de la diffuse dans le shader
+	shader.setVector3f("uDirLight.specColor", dirLight.specColor);//Change la couleur de la specular dans le shader
 
 }
 
