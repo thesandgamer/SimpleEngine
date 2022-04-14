@@ -8,7 +8,8 @@ SpriteComponent::SpriteComponent(Actor* ownerP,Texture& textureP,int drawOrderP)
 	texture(textureP), //La texture à utiliser
 	drawOrder(drawOrderP), //Quand la dessiner
 	texWidth(textureP.getWidth()),
-	texHeight(textureP.getHeight())
+	texHeight(textureP.getHeight()),
+	isVisible(true)
 {
 	owner.getGame().getRenderer().addSprite(this); //Add le sprite à renderer du game(sa liste de sprite à draw)
 }
@@ -28,4 +29,9 @@ void SpriteComponent::draw(IRenderer& renderer)
 {
 	Vector2 origin{ texWidth / 2.f,texHeight / 2.f };
 	renderer.drawSprite(owner, texture, Rectangle::nullRect, origin, IRenderer::Flip::None); //Draw le sprite
+}
+
+void SpriteComponent::setVisible(bool isVisibleP)
+{
+	isVisible = isVisibleP;
 }

@@ -16,7 +16,7 @@ RendererOGL::RendererOGL() :
 	spriteVertexArray(nullptr),
 	spriteViewProj(Matrix4::createSimpleViewProj(WINDOW_WIDTH, WINDOW_HEIGHT)),
 	view(Matrix4::createLookAt(Vector3::zero, Vector3::unitX, Vector3::unitZ)), // By default, the camera looks forward. This view matrix will be changed by the camera
-	projection(Matrix4::createPerspectiveFOV(Maths::toRadians(70.0f), WINDOW_WIDTH, WINDOW_HEIGHT, 25.0f, 10000.0f)),
+	projection(Matrix4::createPerspectiveFOV(Maths::toRadians(70.0f), WINDOW_WIDTH, WINDOW_HEIGHT, 10.0f, 10000.0f)),
 	//^ creates the camera frustrum
 
 	ambientLight(Vector3(1.0f, 1.0f, 1.0f)),
@@ -187,7 +187,10 @@ void RendererOGL::drawMeshes()
 	//Assets::getShader("BasicMesh").setMatrix4("uViewProj", view * projection);//Set le matrix 4 du shader avec la vu et la proj du renderer
 	for (auto mc : meshes)
 	{
-		mc->draw(Assets::getShader("Phong"));//Dessine le mesh du meshcompnenet avec le shader basic mesh
+		if (mc->getVisible())
+		{
+			mc->draw(Assets::getShader("Phong"));//Dessine le mesh du meshcompnenet avec le shader basic mesh
+		}
 	}
 }
 
@@ -208,6 +211,9 @@ void RendererOGL::drawSprites()
 
 	for (auto sprite : sprites)
 	{
-		sprite->draw(*this);
+		if (sprite->getVisible())
+		{
+			sprite->draw(*this);
+		}
 	}
 }

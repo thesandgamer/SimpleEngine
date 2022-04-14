@@ -48,8 +48,9 @@ void InputSystem::preUpdate()
 	memcpy(inputState.keyboard.previousState, inputState.keyboard.currentState, SDL_NUM_SCANCODES);
 
 	//Souris
-	inputState.mouse.isRelativeMode = false;
+	inputState.mouse.previousButtons = inputState.mouse.currentButtons;
 	inputState.mouse.scrollWheel = Vector2::zero;
+
 
 }
 
@@ -88,5 +89,6 @@ void InputSystem::setMouseRelativeMode(bool isMouseRelativeOnP)
 {
 	SDL_bool set = isMouseRelativeOnP ? SDL_TRUE : SDL_FALSE;
 	SDL_SetRelativeMouseMode(set);
+
 	inputState.mouse.isRelativeMode = isMouseRelativeOnP;
 }

@@ -2,7 +2,7 @@
 #include "Actor.h"
 #include "InputSystem.h"
 
-Component::Component(Actor* ownerP, int updateOrderP) : owner(*ownerP)
+Component::Component(Actor* ownerP, int updateOrderP) : owner(*ownerP),updateOrder(updateOrderP)
 {
 	owner.addComponent(this);
 }
@@ -20,3 +20,4 @@ void Component::update(float dt)
 void Component::processInput(const struct InputState& inputState)
 {
 }
+

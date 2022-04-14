@@ -94,6 +94,15 @@
     <ClCompile Include="MouseState.cpp">
       <Filter>Engine\Inputs</Filter>
     </ClCompile>
+    <ClCompile Include="CameraComponent.cpp">
+      <Filter>Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSCameraComponent.cpp">
+      <Filter>Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSActor.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CircleCollisionComponent.h">
@@ -195,6 +204,15 @@
     <ClInclude Include="MouseState.h">
       <Filter>Engine\Inputs</Filter>
     </ClInclude>
+    <ClInclude Include="CameraComponent.h">
+      <Filter>Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCameraComponent.h">
+      <Filter>Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSActor.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
@@ -229,6 +247,9 @@
     </Filter>
     <Filter Include="Engine\Inputs">
       <UniqueIdentifier>{5ba6bea9-1bea-4a35-8012-39d93d2b8fbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Camera">
+      <UniqueIdentifier>{95472afc-13d3-4406-be16-70e2655ef2f3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

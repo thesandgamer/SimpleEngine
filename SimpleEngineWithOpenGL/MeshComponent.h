@@ -11,9 +11,14 @@ public:
 	virtual void setMesh(class Mesh& meshP);
 	void setTextureIndex(size_t textureIndexP);
 
+	bool getVisible() const { return isVisible; }
+	void setVisible(bool isVisibleP);
+
 protected:
 	Mesh* mesh;
 	size_t textureIndex;
+
+	bool isVisible;
 
 };
 

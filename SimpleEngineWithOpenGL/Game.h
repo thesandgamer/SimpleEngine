@@ -29,7 +29,8 @@ public:
 	Game& operator=(Game&&) = delete;
 
 private:
-	Game() :isRunning(true), isUpdatingActors(false), camera(nullptr) {}
+	Game() :isRunning(true), isUpdatingActors(false), crosshair{nullptr} {}
+		//camera(nullptr) {}
 
 
 public:
@@ -61,11 +62,13 @@ private:
 	vector<Actor*> actors;
 	vector<Actor*> pendingActors;
 
-	Camera* camera;
+	//Camera* camera;
 
 	InputSystem inputSystem;
 
 	//Game Specific
+	class FPSActor* fps;
+	class SpriteComponent* crosshair;
 
 
 

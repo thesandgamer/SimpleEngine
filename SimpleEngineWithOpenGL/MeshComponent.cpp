@@ -3,7 +3,7 @@
 #include "Game.h"
 #include "Mesh.h"
 
-MeshComponent::MeshComponent(Actor* owner) : Component(owner), mesh(nullptr), textureIndex(0)
+MeshComponent::MeshComponent(Actor* owner) : Component(owner), mesh(nullptr), textureIndex(0), isVisible(true)
 {
 	owner->getGame().getRenderer().addMesh(this);
 }
@@ -40,4 +40,10 @@ void MeshComponent::setMesh(Mesh& meshP)
 void MeshComponent::setTextureIndex(size_t textureIndexP)
 {
 	textureIndex = textureIndexP;
+}
+
+
+void MeshComponent::setVisible(bool isVisibleP)
+{
+	isVisible = isVisibleP;
 }

@@ -8,7 +8,7 @@
 #include "Cube.h"
 #include "Sphere.h"
 #include "Plane.h"
-
+#include "FPSActor.h"
 
 
 bool Game::initialize()
@@ -22,6 +22,11 @@ bool Game::initialize()
 
 void Game::load()
 {
+	//Passe le jeu en relatif _______________________________________________
+	inputSystem.setMouseRelativeMode(true);
+	//_____________________________________________________________________
+
+
 	//Load Shader _______________________________________________
 	Assets::loadShader("Res\\Shaders\\Sprite.vert", "Res\\Shaders\\Sprite.frag", "", "", "", "Sprite");
 	Assets::loadShader("Res\\Shaders\\BasicMesh.vert", "Res\\Shaders\\BasicMesh.frag", "", "", "", "BasicMesh");
@@ -36,6 +41,8 @@ void Game::load()
 	Assets::loadTexture(renderer, "Res\\Textures\\Plane.png", "Plane");
 	Assets::loadTexture(renderer, "Res\\Textures\\Radar.png", "Radar");
 	Assets::loadTexture(renderer, "Res\\Textures\\Sphere.png", "Sphere");
+	Assets::loadTexture(renderer, "Res\\Textures\\Crosshair.png", "Crosshair");
+	Assets::loadTexture(renderer, "Res\\Textures\\Rifle.png", "Rifle");
 	//_____________________________________________________________________
 
 	
@@ -44,11 +51,13 @@ void Game::load()
 	Assets::loadMesh("Res\\Meshes\\Cube.gpmesh", "Mesh_Cube");
 	Assets::loadMesh("Res\\Meshes\\Plane.gpmesh", "Mesh_Plane");
 	Assets::loadMesh("Res\\Meshes\\Sphere.gpmesh", "Mesh_Sphere");
+	Assets::loadMesh("Res\\Meshes\\Rifle.gpmesh", "Mesh_Rifle");
 	//________________________________________________________________________________
 
 		
-	camera = new Camera();
-	
+	//camera = new Camera();
+	fps = new FPSActor();
+
 	//Créer le cube
 	Cube* a = new Cube();
 	a->setPosition(Vector3(100.0f, 105.0f, 0.0f)); //Set sa position
@@ -116,6 +125,12 @@ void Game::load()
 	ui->setPosition(Vector3(375.0f, -275.0f, 0.0f));
 	ui->setScale(0.75f);
 	sc = new SpriteComponent(ui, Assets::getTexture("Radar"));
+
+	
+	Actor* crosshairActor = new Actor();
+	crosshairActor->setScale(1.0f);
+	crosshair = new SpriteComponent(crosshairActor, Assets::getTexture("Crosshair"));//Ajoute le componenent sprite au crossHair actor
+	
 	
 }
 	
@@ -124,16 +139,13 @@ void Game::load()
 //Check des InputsS
 void Game::processInput()
 {
+	inputSystem.preUpdate();
+
 	// SDL Event
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
 	{
-		switch (event.type)
-		{
-		case SDL_QUIT:
-			isRunning = false;
-			break;
-		}
+		isRunning = inputSystem.processEvent(event);
 	}
 
 	// Keyboard state

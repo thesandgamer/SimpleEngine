@@ -19,8 +19,11 @@ public:
 
 	virtual void onUpdateWorldTransfom() {}
 
+
+
 protected:
 	Actor& owner;
 	int updateOrder;
+
 };
 
