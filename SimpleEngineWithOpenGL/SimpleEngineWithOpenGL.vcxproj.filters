@@ -103,6 +103,7 @@
     <ClCompile Include="FPSActor.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
+    <ClCompile Include="MapCreator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CircleCollisionComponent.h">
@@ -213,6 +214,7 @@
     <ClInclude Include="FPSActor.h">
       <Filter>Actor</Filter>
     </ClInclude>
+    <ClInclude Include="MapCreator.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">

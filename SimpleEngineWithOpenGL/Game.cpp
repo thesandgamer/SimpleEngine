@@ -9,6 +9,7 @@
 #include "Sphere.h"
 #include "Plane.h"
 #include "FPSActor.h"
+#include "MapCreator.h"
 
 
 bool Game::initialize()
@@ -130,6 +131,8 @@ void Game::load()
 	Actor* crosshairActor = new Actor();
 	crosshairActor->setScale(1.0f);
 	crosshair = new SpriteComponent(crosshairActor, Assets::getTexture("Crosshair"));//Ajoute le componenent sprite au crossHair actor
+
+	MapCreator mapCreator = MapCreator(Vector3(-200,-200, -40), "L_Test");
 	
 	
 }

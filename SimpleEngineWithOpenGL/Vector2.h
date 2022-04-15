@@ -38,6 +38,40 @@ struct Vector2
 		return Vector2(left.x + right.x, left.y + right.y);
 	}
 
+	//
+	bool operator<(const Vector2& other)
+	{
+		if (x < other.x && y < other.y) return true;
+		return false;
+	}
+
+	bool operator<=(const Vector2& other)
+	{
+		if (x <= other.x && y <= other.y) return true;
+		return false;
+	}
+	bool operator>(const Vector2& other)
+	{
+		if (x > other.x && y > other.y) return true;
+		return false;
+	}
+	bool operator>=(const Vector2& other)
+	{
+		if (x >= other.x && y >= other.y) return true;
+		return false;
+	}
+	bool operator==(const Vector2& other)
+	{
+		if (x == other.x && y == other.y) return true;
+		return false;
+	}
+	bool operator!=(const Vector2& other)
+	{
+		if (x != other.x && y != other.y) return true;
+		return false;
+	}
+	//
+
 	Vector2& operator+=(const Vector2& right)
 	{
 		x += right.x;
@@ -73,4 +107,5 @@ struct Vector2
 	{
 		return Vector2(vec.x * scalar, vec.y * scalar);
 	}
+
 };

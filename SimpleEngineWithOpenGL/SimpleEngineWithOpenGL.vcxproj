@@ -161,6 +161,7 @@
     <ClCompile Include="KeyboardState.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MapCreator.cpp" />
     <ClCompile Include="Matrix4.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshComponent.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="KeyboardState.h" />
     <ClInclude Include="Log.h" />
+    <ClInclude Include="MapCreator.h" />
     <ClInclude Include="Maths.h" />
     <ClInclude Include="Matrix4.h" />
     <ClInclude Include="Mesh.h" />
